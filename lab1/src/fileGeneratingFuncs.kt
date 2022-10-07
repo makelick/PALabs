@@ -21,6 +21,6 @@ fun generateFile(name: String, length: ULong, blockLength : Int) {
     file.writeText("")
     do {
         val tempList = MutableList(blockLength) {Random.nextInt()}
-        file.appendText(tempList.joinToString(separator = " "))
+        file.appendText(tempList.joinToString(separator = "\n", postfix = "\n"))
     } while(file.length().toULong() < length)
 }

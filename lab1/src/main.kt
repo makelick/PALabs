@@ -1,7 +1,5 @@
 fun main() {
-    val startTimeOfGenerating = System.currentTimeMillis()
-
-    val inputFilename = "input.txt"
+    val inputFileName = "input.txt"
     var fileLength: ULong = 0uL
     var blockLength = 0
 
@@ -20,10 +18,20 @@ fun main() {
         }
     }
 
-    generateFile(inputFilename, fileLength, blockLength)
+    val startGeneratingTime = System.currentTimeMillis()
 
-    val totalTimeOfGenerating = System.currentTimeMillis() - startTimeOfGenerating
-    println("Running time ${"%02d".format(totalTimeOfGenerating / (60_000))}" +
+    generateFile(inputFileName, fileLength, blockLength)
+
+    val startSortingTime = System.currentTimeMillis()
+    val totalTimeOfGenerating = startSortingTime - startGeneratingTime
+    println("Generation time ${"%02d".format(totalTimeOfGenerating / (60_000))}" +
             ":${"%02d".format(totalTimeOfGenerating / 1000 % 60)}" +
             ".${totalTimeOfGenerating % 1000}")
+
+    externalSort(inputFileName, 5)
+
+    val totalSortingTime = System.currentTimeMillis() - startSortingTime
+    println("Sorting time ${"%02d".format(totalSortingTime / (60_000))}" +
+            ":${"%02d".format(totalSortingTime / 1000 % 60)}" +
+            ".${"%03d".format(totalSortingTime % 1000)}")
 }
