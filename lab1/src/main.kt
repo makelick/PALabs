@@ -24,14 +24,18 @@ fun main() {
 
     val startSortingTime = System.currentTimeMillis()
     val totalTimeOfGenerating = startSortingTime - startGeneratingTime
-    println("Generating time ${"%02d".format(totalTimeOfGenerating / (60_000))}" +
-            ":${"%02d".format(totalTimeOfGenerating / 1000 % 60)}" +
-            ".${totalTimeOfGenerating % 1000}")
+    println(
+        "Generating time ${"%02d".format(totalTimeOfGenerating / (60_000))}" +
+                ":${"%02d".format(totalTimeOfGenerating / 1000 % 60)}" +
+                ".${totalTimeOfGenerating % 1000}"
+    )
 
-    externalSort(inputFileName,  3)
+    externalSort(inputFileName, 3)
 
     val totalSortingTime = System.currentTimeMillis() - startSortingTime
-    println("Sorting time ${"%02d".format(totalSortingTime / (60_000))}" +
-            ":${"%02d".format(totalSortingTime / 1000 % 60)}" +
-            ".${"%03d".format(totalSortingTime % 1000)}")
+    println(
+        "Sorting time ${"%02d".format(totalSortingTime / (60_000))}" +
+                ":${"%02d".format(totalSortingTime / 1000 % 60)}" +
+                ".${"%03d".format(totalSortingTime % 1000)}"
+    )
 }

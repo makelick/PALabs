@@ -1,8 +1,8 @@
 import java.io.File
 import kotlin.random.Random
 
-fun inputFileType() : String {
-    var fileType : String
+fun inputFileType(): String {
+    var fileType: String
     print(
         "Enter length of the file (small/normal/large) " +
                 "\nSmall - 10 MB " +
@@ -16,11 +16,11 @@ fun inputFileType() : String {
     return fileType
 }
 
-fun generateFile(name: String, length: ULong, blockLength : Int) {
+fun generateFile(name: String, length: ULong, blockLength: Int) {
     val file = File(name)
     file.writeText("")
     do {
-        val tempList = MutableList(blockLength) {Random.nextInt()}
+        val tempList = MutableList(blockLength) { Random.nextInt() }
         file.appendText(tempList.joinToString(separator = "\n", postfix = "\n"))
-    } while(file.length().toULong() < length)
+    } while (file.length().toULong() < length)
 }

@@ -20,9 +20,18 @@ fun externalSort(fileName: String, numOfFiles: Int) {
         BC = !BC
     }
 
+    if (filesB[0].length() == inputFile.length()) {
+        filesB[0].copyTo(File("output.txt"), true)
+    } else {
+        filesC[0].copyTo(File("output.txt"), true)
+    }
+    for (i in 0 until numOfFiles) {
+        filesB[i].writeText("")
+        filesC[i].writeText("")
+    }
 }
 
-fun splitFile(inputFile : File, outputFiles: List<File>, numOfFiles : Int) {
+fun splitFile(inputFile: File, outputFiles: List<File>, numOfFiles: Int) {
     var set = mutableListOf<Int>()
     val reader = BufferedReader(FileReader(inputFile))
     var counter = 0
@@ -40,50 +49,50 @@ fun splitFile(inputFile : File, outputFiles: List<File>, numOfFiles : Int) {
     outputFiles[counter].appendText(set.joinToString(separator = "\n", postfix = "\n"))
 }
 
-fun merge(inputFiles : List<File>, outputFiles : List<File>, numOfFiles: Int) {
+fun merge(inputFiles: List<File>, outputFiles: List<File>, numOfFiles: Int) {
     for (file in outputFiles) file.writeText("")
-            val buffReaders = List(numOfFiles) { i -> BufferedReader(FileReader(inputFiles[i])) }
-            var outputFileCounter = 0
-            while (!isEOFs(buffReaders)) {
-                val sortedList = mutableListOf<Int>()
-                val tempList = mutableListOf<Pair<Int, Int>>()
-                for (i in buffReaders.indices) {
-                    val line = checkLine(buffReaders[i])
-                    if (line != null && line != "") {
-                        tempList.add(Pair(i, line.toInt()))
-                    }
-                }
-                var flag = true
-                while (flag) {
-                    var minValue = Int.MAX_VALUE
-                    var minIndex = -1
-                    if (tempList.isNotEmpty()) {
-                        var indexForDel = 0
-                        for (i in tempList.indices) {
-                            if (tempList[i].second <= minValue) {
-                                minValue = tempList[i].second
-                                minIndex = tempList[i].first
-                                indexForDel = i
-                            }
-                        }
-                        sortedList.add(minValue)
-                        tempList.removeAt(indexForDel)
-                        buffReaders[minIndex].readLine()
-                        val line = checkLine(buffReaders[minIndex])
-                        if (line != null && line != "" && line != "-") {
-                            if (sortedList.isEmpty() || line.toInt() >= sortedList.last()) {
-                                tempList.add(Pair(minIndex, line.toInt()))
-                            }
-                        }
-                    } else {
-                        outputFiles[outputFileCounter].appendText(sortedList.joinToString(separator = "\n", postfix = "\n"))
-                        sortedList.clear()
-                        outputFileCounter = (outputFileCounter + 1) % numOfFiles
-                        flag = false
-                    }
-                }
-
+    val buffReaders = List(numOfFiles) { i -> BufferedReader(FileReader(inputFiles[i])) }
+    var outputFileCounter = 0
+    while (!isEOFs(buffReaders)) {
+        val sortedList = mutableListOf<Int>()
+        val tempList = mutableListOf<Pair<Int, Int>>()
+        for (i in buffReaders.indices) {
+            val line = checkLine(buffReaders[i])
+            if (line != null && line != "") {
+                tempList.add(Pair(i, line.toInt()))
             }
+        }
+        var flag = true
+        while (flag) {
+            var minValue = Int.MAX_VALUE
+            var minIndex = -1
+            if (tempList.isNotEmpty()) {
+                var indexForDel = 0
+                for (i in tempList.indices) {
+                    if (tempList[i].second <= minValue) {
+                        minValue = tempList[i].second
+                        minIndex = tempList[i].first
+                        indexForDel = i
+                    }
+                }
+                sortedList.add(minValue)
+                tempList.removeAt(indexForDel)
+                buffReaders[minIndex].readLine()
+                val line = checkLine(buffReaders[minIndex])
+                if (line != null && line != "" && line != "-") {
+                    if (sortedList.isEmpty() || line.toInt() >= sortedList.last()) {
+                        tempList.add(Pair(minIndex, line.toInt()))
+                    }
+                }
+            } else {
+                outputFiles[outputFileCounter].appendText(sortedList.joinToString(separator = "\n", postfix = "\n"))
+                sortedList.clear()
+                outputFileCounter = (outputFileCounter + 1) % numOfFiles
+                flag = false
+            }
+        }
+
+    }
 }
 
 fun checkLine(reader: BufferedReader): String? {
