@@ -32,21 +32,21 @@ fun externalSort(fileName: String, numOfFiles: Int) {
 }
 
 fun splitFile(inputFile: File, outputFiles: List<File>, numOfFiles: Int) {
-    var set = mutableListOf<Int>()
+    var list = mutableListOf<Int>()
     val reader = BufferedReader(FileReader(inputFile))
     var counter = 0
 
     while (!isEOFs(listOf(reader))) {
         val element = reader.readLine().toInt()
 
-        if (set.isEmpty() || element >= set.last()) set.add(element)
+        if (list.isEmpty() || element >= list.last()) list.add(element)
         else {
-            outputFiles[counter].appendText(set.joinToString(separator = "\n", postfix = "\n"))
-            set = mutableListOf(element)
+            outputFiles[counter].appendText(list.joinToString(separator = "\n", postfix = "\n"))
+            list = mutableListOf(element)
             counter = (counter + 1) % numOfFiles
         }
     }
-    outputFiles[counter].appendText(set.joinToString(separator = "\n", postfix = "\n"))
+    outputFiles[counter].appendText(list.joinToString(separator = "\n", postfix = "\n"))
 }
 
 fun merge(inputFiles: List<File>, outputFiles: List<File>, numOfFiles: Int) {
@@ -76,6 +76,10 @@ fun merge(inputFiles: List<File>, outputFiles: List<File>, numOfFiles: Int) {
                     }
                 }
                 sortedList.add(minValue)
+                if (sortedList.size >= 1_000_000) {
+                    outputFiles[outputFileCounter].appendText(sortedList.joinToString(separator = "\n", postfix = "\n"))
+                    sortedList.clear()
+                }
                 tempList.removeAt(indexForDel)
                 buffReaders[minIndex].readLine()
                 val line = checkLine(buffReaders[minIndex])
