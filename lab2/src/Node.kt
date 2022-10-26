@@ -5,13 +5,11 @@ class Node(
     val action: Action? = null
 ) {
     override fun toString(): String {
-        var nodeString = "State:\n$state"
-        nodeString += "Action: $action" +
-                "\nDepth: $depth"
+        val nodeString = "Action: $action State:\n$state\nDepth: $depth\n"
         return nodeString
     }
 
-    fun expand() : MutableList<Node> {
+    fun expand(): MutableList<Node> {
         val successors = mutableListOf<Node>()
         val actions = state.getPossibleActions()
         for (i in actions) {
@@ -20,4 +18,13 @@ class Node(
         return successors
     }
 
+    fun printSolution() {
+        val way = mutableListOf<Node>()
+        var parentNode: Node? = this
+        while (parentNode != null) {
+            way.add(parentNode)
+            parentNode = parentNode.parent
+        }
+        for (i in way.lastIndex - 1 downTo 0) println(way[i])
+    }
 }

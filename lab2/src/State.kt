@@ -3,9 +3,10 @@ class State(val matrix: List<MutableList<Int>>) {
         val actions = mutableListOf<Action>()
         val pos = getPointerPosition()
         if (pos.first != 0) actions.add(Action.UP)
+        if (pos.second != matrix[0].lastIndex) actions.add(Action.RIGHT)
         if (pos.first != matrix.lastIndex) actions.add(Action.DOWN)
         if (pos.second != 0) actions.add(Action.LEFT)
-        if (pos.second != matrix[0].lastIndex) actions.add(Action.RIGHT)
+        actions.shuffle()
         return actions
     }
 
@@ -22,7 +23,8 @@ class State(val matrix: List<MutableList<Int>>) {
         val newMatrix = List(matrix.size) { i -> matrix[i].toMutableList() }
         val ptr = getPointerPosition()
         newMatrix[ptr.first][ptr.second] = newMatrix[ptr.first + action.row][ptr.second + action.col].also {
-                newMatrix[ptr.first + action.row][ptr.second + action.col] = newMatrix[ptr.first][ptr.second] }
+            newMatrix[ptr.first + action.row][ptr.second + action.col] = newMatrix[ptr.first][ptr.second]
+        }
         return State(newMatrix)
     }
 
