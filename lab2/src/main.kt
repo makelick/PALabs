@@ -1,24 +1,34 @@
 fun main() {
+    val algo : Algorithm
+    val result : Result
     val limit = 22
+
     val startState = Generator().generateState()
     println("Start state:\n$startState")
 
     val startTime = System.currentTimeMillis()
 
-//    val ldfs = LDFS(startState)
-//    val result = ldfs.search(limit, startTime)
-    val astar = AStar(startState)
-    val result = astar.search(startTime)
+    val input = inputAlgo()
+
+    if (input == "LDFS") {
+        algo = LDFS(startState)
+        result = algo.search(limit, startTime)
+    } else {
+        algo = AStar(startState)
+        result = algo.search(startTime)
+    }
+
     if (result.type == ResultType.SOLUTION) result.node.printSolution()
     else println(result.type)
 
-//    Statistic().printStats(ldfs.iterations, ldfs.deadEndCounter, ldfs.totalStateCounter, ldfs.maxMemoryStateCounter)
-    Statistic().printStats(astar.iterations, astar.deadEndCounter, astar.totalStateCounter, astar.totalStateCounter)
+    algo.printStats(startTime)
+}
 
-    val totalTime = System.currentTimeMillis() - startTime
-    println(
-        "Total time ${"%02d".format(totalTime / (60_000))}" +
-                ":${"%02d".format(totalTime / 1000 % 60)}" +
-                ".${totalTime % 1000}"
-    )
+fun inputAlgo() : String {
+    var input: String
+    do {
+        print("Enter algorithm type (a*/ldfs): ")
+        input = readLine()!!.uppercase()
+    } while (input != "A*" && input != "LDFS")
+    return input
 }

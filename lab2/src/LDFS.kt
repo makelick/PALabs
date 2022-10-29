@@ -1,18 +1,6 @@
 import java.lang.Integer.max
 
-class LDFS(val startState: State) {
-    private val goal = State(
-        listOf(
-            mutableListOf(0, 1, 2),
-            mutableListOf(3, 4, 5),
-            mutableListOf(6, 7, 8),
-        )
-    )
-    var iterations = 0
-    var totalStateCounter = 0
-    var memoryStateCounter = 1
-    var maxMemoryStateCounter = memoryStateCounter
-    var deadEndCounter = 0
+class LDFS(val startState: State) : Algorithm() {
     fun search(limit: Int, startTime: Long): Result {
         val root = Node(startState, 0)
         return recursiveSearch(root, limit, startTime)
@@ -23,7 +11,7 @@ class LDFS(val startState: State) {
         memoryStateCounter -= 1
         maxMemoryStateCounter = max(maxMemoryStateCounter, memoryStateCounter)
         if (node.state.sameState(goal)) return Result(node, ResultType.SOLUTION)
-        if (node.depth >= limit || !Statistic().isEnoughMemory() || !Statistic().isEnoughTime(startTime)) {
+        if (node.depth >= limit || !isEnoughMemory() || !isEnoughTime(startTime)) {
             deadEndCounter++
             return Result(node, ResultType.CUTOFF)
         }
