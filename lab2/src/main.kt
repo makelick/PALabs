@@ -2,14 +2,18 @@ fun main() {
     val limit = 22
     val startState = Generator().generateState()
     println("Start state:\n$startState")
+
     val startTime = System.currentTimeMillis()
-    val ldfs = LDFS(startState)
-    val result = ldfs.search(limit)
-//    val astar = AStar(startState)
-//    val result = astar.search()
+
+//    val ldfs = LDFS(startState)
+//    val result = ldfs.search(limit, startTime)
+    val astar = AStar(startState)
+    val result = astar.search(startTime)
     if (result.type == ResultType.SOLUTION) result.node.printSolution()
     else println(result.type)
-    ldfs.printStats()
+
+//    Statistic().printStats(ldfs.iterations, ldfs.deadEndCounter, ldfs.totalStateCounter, ldfs.maxMemoryStateCounter)
+    Statistic().printStats(astar.iterations, astar.deadEndCounter, astar.totalStateCounter, astar.totalStateCounter)
 
     val totalTime = System.currentTimeMillis() - startTime
     println(

@@ -8,22 +8,22 @@ class LDFS(val startState: State) {
             mutableListOf(6, 7, 8),
         )
     )
-    var iterations = 0L
-    var totalStateCounter = 0L
+    var iterations = 0
+    var totalStateCounter = 0
     var memoryStateCounter = 1
     var maxMemoryStateCounter = memoryStateCounter
-    var deadEndCounter = 0L
-    fun search(limit: Int): Result {
+    var deadEndCounter = 0
+    fun search(limit: Int, startTime: Long): Result {
         val root = Node(startState, 0)
-        return recursiveSearch(root, limit)
+        return recursiveSearch(root, limit, startTime)
     }
 
-    fun recursiveSearch(node: Node, limit: Int): Result {
+    fun recursiveSearch(node: Node, limit: Int, startTime : Long): Result {
         iterations++
         memoryStateCounter -= 1
         maxMemoryStateCounter = max(maxMemoryStateCounter, memoryStateCounter)
         if (node.state.sameState(goal)) return Result(node, ResultType.SOLUTION)
-        if (node.depth >= limit) {
+        if (node.depth >= limit || !Statistic().isEnoughMemory() || !Statistic().isEnoughTime(startTime)) {
             deadEndCounter++
             return Result(node, ResultType.CUTOFF)
         }
@@ -31,16 +31,9 @@ class LDFS(val startState: State) {
         memoryStateCounter += successors.size
         totalStateCounter += successors.size
         for (i in successors) {
-            val res = recursiveSearch(i, limit)
+            val res = recursiveSearch(i, limit, startTime)
             if (res.type == ResultType.SOLUTION) return res
         }
         return Result(node, ResultType.FAIL)
-    }
-
-    fun printStats() {
-        println("Iterations: $iterations\n" +
-                "Dead ends: $deadEndCounter\n" +
-                "Total states: $totalStateCounter\n" +
-                "Max states in memory: $maxMemoryStateCounter")
     }
 }
