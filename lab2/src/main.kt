@@ -5,8 +5,11 @@ fun main() {
     val startTime = System.currentTimeMillis()
     val ldfs = LDFS(startState)
     val result = ldfs.search(limit)
+//    val astar = AStar(startState)
+//    val result = astar.search()
     if (result.type == ResultType.SOLUTION) result.node.printSolution()
     else println(result.type)
+    ldfs.printStats()
 
     val totalTime = System.currentTimeMillis() - startTime
     println(

@@ -1,4 +1,4 @@
-class State(val matrix: List<MutableList<Int>>) {
+class State(private val matrix: List<MutableList<Int>>) {
     fun getPossibleActions(): MutableList<Action> {
         val actions = mutableListOf<Action>()
         val pos = getPointerPosition()
@@ -6,7 +6,6 @@ class State(val matrix: List<MutableList<Int>>) {
         if (pos.second != matrix[0].lastIndex) actions.add(Action.RIGHT)
         if (pos.first != matrix.lastIndex) actions.add(Action.DOWN)
         if (pos.second != 0) actions.add(Action.LEFT)
-        actions.shuffle()
         return actions
     }
 
@@ -41,5 +40,13 @@ class State(val matrix: List<MutableList<Int>>) {
             }
         }
         return true
+    }
+
+    fun countIncorrectPosition() : Int {
+        var counter = 0
+        for (i in 0..8) {
+            if (matrix[i/3][i % 3] != i && matrix[i/3][i % 3] != 0) counter++
+        }
+        return counter
     }
 }
