@@ -6,9 +6,9 @@ fun main() {
     val startState = Generator().generateState()
     println("Start state:\n$startState")
 
-    val startTime = System.currentTimeMillis()
-
     val input = inputAlgo()
+
+    val startTime = System.currentTimeMillis()
 
     if (input == "LDFS") {
         algo = LDFS(startState)
