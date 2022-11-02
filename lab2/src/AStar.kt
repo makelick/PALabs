@@ -12,7 +12,7 @@ class AStar(val startState: State) : Algorithm() {
             var isNewStates = false
             iterations++
             val currentNode = queue.remove()
-            closedList.add(currentNode)
+            closedList.add(0, currentNode)
             if (currentNode.state.sameState(goal)) return Result(currentNode, ResultType.SOLUTION)
             if (!isEnoughMemory() || !isEnoughTime(startTime)) {
                 deadEndCounter++

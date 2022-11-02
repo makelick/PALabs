@@ -5,7 +5,7 @@ class Node(
     val action: Action? = null
 )
 {
-    val value = state.countIncorrectPosition()
+    val value = state.countIncorrectPosition() + depth
     override fun toString(): String {
         val nodeString = "Action: $action\nState:\n${state}Depth: $depth\n"
         return nodeString
