@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">lab3</string>
+    <string name="edit_text_key_hint">Key</string>
+    <string name="edit_text_data_hint">Data</string>
+    <string name="option_insert">Insert</string>
+    <string name="option_delete">Delete</string>
+    <string name="option_update">Update</string>
+    <string name="option_search">Search</string>
+    <string name="button_text">Do some magic ✨</string>
+</resources>
