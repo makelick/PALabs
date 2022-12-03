@@ -6,6 +6,11 @@
     <string name="option_delete">Delete</string>
     <string name="option_update">Update</string>
     <string name="option_search">Search</string>
-    <string name="button_text">Do some magic ✨</string>
+    <string name="button_text">Execute</string>
     <string name="result">Result: %s</string>
+    <string name="no_such_key">No such key in the tree.</string>
+    <string name="successful_search">Found %s.</string>
+    <string name="successful_update">Update record with key %s.</string>
+    <string name="unsuccessful_insert">Try another key, this one already exists.</string>
+    <string name="successful_insert">Record inserted.</string>
 </resources>

@@ -21,23 +21,23 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.radioGroup.setOnCheckedChangeListener { _, _ -> chooseInputType() }
-        binding.button.setOnClickListener { executeAction() }
+        binding.button.setOnClickListener { executeAction(applicationContext) }
 
         binding.editTextKey.setOnKeyListener { view, keyCode, _ -> handleKeyEvent(view, keyCode) }
         binding.editTextData.setOnKeyListener { view, keyCode, _ -> handleKeyEvent(view, keyCode) }
     }
 
-    private fun executeAction() {
+    private fun executeAction(context: Context) {
         val key = binding.editTextKey.text.toString().toIntOrNull()
         val data = binding.editTextData.text.toString()
 
         val result =
             if (key != null) {
                 when (binding.radioGroup.checkedRadioButtonId) {
-                    R.id.option_insert -> tree.insert(Record(key, data))
-                    R.id.option_update -> "Update key $key data to \"$data\""
+                    R.id.option_insert -> tree.insert(context, Record(key, data))
+                    R.id.option_update -> tree.update(context, Record(key, data))
                     R.id.option_delete -> "Delete key $key"
-                    R.id.option_search -> tree.search(key)
+                    R.id.option_search -> tree.search(context, key)
                     else -> "Invalid action"
                 }
             } else "Invalid key"

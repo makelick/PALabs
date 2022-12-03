@@ -13,6 +13,13 @@ class Node(var parent: Node? = null,
         return childByKey(key).search(key)
     }
 
+    fun searchAndUpdate(record: Record) : Boolean {
+        val result = binarySearch(record.key)?.let { it.data = record.data }
+        if (result != null) return true
+        if (this.isLeaf()) return false
+        return childByKey(record.key).searchAndUpdate(record)
+    }
+
     private fun binarySearch(key : Int) : Record? {
         var len = records.size
         var mid = len / 2
