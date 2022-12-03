@@ -10,13 +10,14 @@
         android:id="@+id/parent_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
+        android:padding="@dimen/standard_margin"
         tools:context=".MainActivity">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/text_key"
-            android:layout_width="160dp"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/standard_margin"
             android:hint="@string/edit_text_key_hint"
             app:layout_constraintEnd_toStartOf="@+id/text_data"
             app:layout_constraintStart_toStartOf="parent"
@@ -26,15 +27,15 @@
                 android:id="@+id/edit_text_key"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:backgroundTint="@color/alpha"
                 android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/text_data"
-            android:layout_width="160dp"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="29dp"
+            android:layout_marginHorizontal="@dimen/standard_margin"
             android:hint="@string/edit_text_data_hint"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/text_key"
@@ -42,14 +43,15 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edit_text_data"
+                android:backgroundTint="@color/alpha"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
                 android:inputType="text"
                 android:visibility="visible" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <RadioGroup
+            android:layout_marginTop="@dimen/standard_margin"
             android:id="@+id/radio_group"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -63,32 +65,40 @@
                 android:id="@+id/option_insert"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:minWidth="48dp"
-                android:text="@string/option_insert" />
+                android:text="@string/option_insert"
+                android:minHeight="@dimen/min_text_height"
+                android:gravity="center"
+                android:textAppearance="?attr/textAppearanceBody1"/>
 
             <androidx.appcompat.widget.AppCompatRadioButton
                 android:id="@+id/option_update"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:minWidth="48dp"
-                android:text="@string/option_update" />
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:text="@string/option_update"
+                android:minHeight="@dimen/min_text_height"
+                android:gravity="center"
+                android:textAppearance="?attr/textAppearanceBody1"/>
 
             <androidx.appcompat.widget.AppCompatRadioButton
                 android:id="@+id/option_delete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="20dp"
-                android:minWidth="48dp"
-                android:text="@string/option_delete" />
+                android:layout_marginEnd="10dp"
+                android:text="@string/option_delete"
+                android:minHeight="@dimen/min_text_height"
+                android:gravity="center"
+                android:textAppearance="?attr/textAppearanceBody1"/>
 
             <androidx.appcompat.widget.AppCompatRadioButton
                 android:id="@+id/option_search"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:minWidth="48dp"
-                android:text="@string/option_search" />
+                android:text="@string/option_search"
+                android:minHeight="@dimen/min_text_height"
+                android:gravity="center"
+                android:textAppearance="?attr/textAppearanceBody1"/>
         </RadioGroup>
 
         <Button
@@ -98,15 +108,25 @@
             android:text="@string/button_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/radio_group" />
+            app:layout_constraintTop_toBottomOf="@id/radio_group"
+            android:layout_marginTop="@dimen/standard_margin"
+            android:minHeight="@dimen/min_text_height"
+            android:minWidth="144dp"
+            android:gravity="center"
+            android:textAppearance="?attr/textAppearanceBody1"/>
 
         <TextView
             android:id="@+id/result"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="@string/result"
+            android:layout_marginTop="@dimen/standard_margin"
+            android:gravity="center"
+            android:minHeight="@dimen/min_text_height"
+            android:textAppearance="?attr/textAppearanceBody1"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/button" />
+            app:layout_constraintTop_toBottomOf="@id/button"
+            tools:text="@string/result" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

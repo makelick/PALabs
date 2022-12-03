@@ -54,6 +54,7 @@ class MainActivity : AppCompatActivity() {
         ) {
 
             binding.editTextData.visibility = View.GONE
+            binding.textData.visibility = View.GONE
 
             constraintSet.connect(
                 R.id.text_key, ConstraintSet.END,
@@ -61,6 +62,7 @@ class MainActivity : AppCompatActivity() {
             )
         } else {
             binding.editTextData.visibility = View.VISIBLE
+            binding.textData.visibility = View.VISIBLE
 
             constraintSet.connect(
                 R.id.text_key, ConstraintSet.END,
