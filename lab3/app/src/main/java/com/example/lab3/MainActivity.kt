@@ -13,13 +13,14 @@ import com.example.lab3.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private val tree = BTree()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.radioGroup.setOnCheckedChangeListener { radioGroup, i -> chooseInputType() }
+        binding.radioGroup.setOnCheckedChangeListener { _, _ -> chooseInputType() }
         binding.button.setOnClickListener { executeAction() }
 
         binding.editTextKey.setOnKeyListener { view, keyCode, _ -> handleKeyEvent(view, keyCode) }
@@ -27,18 +28,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun executeAction() {
-        val key = binding.editTextKey.text?.toString()?.toIntOrNull()
-        val data = binding.editTextData.text?.toString()
-
-        // TODO: Create B-tree and add implementation of actions bellow
+        val key = binding.editTextKey.text.toString().toIntOrNull()
+        val data = binding.editTextData.text.toString()
 
         val result =
             if (key != null) {
                 when (binding.radioGroup.checkedRadioButtonId) {
-                    R.id.option_insert -> "Insert key $key with data \"$data\""
+                    R.id.option_insert -> tree.insert(Record(key, data))
                     R.id.option_update -> "Update key $key data to \"$data\""
                     R.id.option_delete -> "Delete key $key"
-                    R.id.option_search -> "Search key $key"
+                    R.id.option_search -> tree.search(key)
                     else -> "Invalid action"
                 }
             } else "Invalid key"
