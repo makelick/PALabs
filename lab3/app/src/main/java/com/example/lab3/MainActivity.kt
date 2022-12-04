@@ -8,12 +8,14 @@ import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintSet
 import com.example.lab3.databinding.ActivityMainBinding
+import java.io.*
 
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private val tree = BTree()
+    private val filename = "tree.bin"
+    private var tree = BTree()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,6 +27,16 @@ class MainActivity : AppCompatActivity() {
 
         binding.editTextKey.setOnKeyListener { view, keyCode, _ -> handleKeyEvent(view, keyCode) }
         binding.editTextData.setOnKeyListener { view, keyCode, _ -> handleKeyEvent(view, keyCode) }
+    }
+
+    override fun onPause() {
+        saveTree(tree)
+        super.onPause()
+    }
+
+    override fun onResume() {
+        tree = loadTree()
+        super.onResume()
     }
 
     private fun executeAction() {
@@ -80,5 +92,24 @@ class MainActivity : AppCompatActivity() {
             return true
         }
         return false
+    }
+
+    private fun saveTree(tree: BTree) {
+        val fileOut = FileOutputStream(File(filesDir, filename))
+        val objectOut = ObjectOutputStream(fileOut)
+        objectOut.writeObject(tree)
+        objectOut.close()
+    }
+
+    private fun loadTree(): BTree {
+        return try {
+            val fileIn = FileInputStream(File(filesDir, filename))
+            val objectIn = ObjectInputStream(fileIn)
+            val obj = objectIn.readObject()
+            objectIn.close()
+            obj as BTree
+        } catch (e: Exception) {
+            BTree()
+        }
     }
 }

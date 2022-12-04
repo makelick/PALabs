@@ -1,8 +1,9 @@
 package com.example.lab3
 
 import android.content.Context
+import java.io.Serializable
 
-class BTree(private val t: Int = 3) {
+class BTree(private val t: Int = 3) : Serializable {
 
     private var root: Node = Node(t)
 

@@ -1,11 +1,13 @@
 package com.example.lab3
 
+import java.io.Serializable
+
 class Node(
     private val t: Int,
     var parent: Node? = null,
     var records: MutableList<Record> = mutableListOf(),
     var children: MutableList<Node> = mutableListOf()
-) {
+    ) : Serializable {
 
     fun isLeaf() = children.isEmpty()
 
