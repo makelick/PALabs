@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
     }
 
-    fun deleteTree() {
+    private fun deleteTree() {
         File(filesDir, filename).delete()
         tree = BTree()
         binding.result.text = getString(R.string.result, getString(R.string.delete_tree))
