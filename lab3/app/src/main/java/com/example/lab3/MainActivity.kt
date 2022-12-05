@@ -22,9 +22,10 @@ class MainActivity : AppCompatActivity() {
 
         binding.radioGroup.setOnCheckedChangeListener { _, _ -> chooseInputType() }
         binding.button.setOnClickListener { executeAction() }
+        binding.buttonDelete.setOnClickListener { deleteTree() }
 
-        binding.editTextKey.setOnKeyListener { view, keyCode, _ -> handleKeyEvent(view, keyCode) }
-        binding.editTextData.setOnKeyListener { view, keyCode, _ -> handleKeyEvent(view, keyCode) }
+        binding.editTextKey.setOnKeyListener { _, keyCode, _ -> handleKeyEvent(keyCode) }
+        binding.editTextData.setOnKeyListener { _, keyCode, _ -> handleKeyEvent(keyCode) }
     }
 
     override fun onPause() {
@@ -35,6 +36,12 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         tree = loadTree()
         super.onResume()
+    }
+
+    fun deleteTree() {
+        File(filesDir, filename).delete()
+        tree = BTree()
+        binding.result.text = getString(R.string.result, getString(R.string.delete_tree))
     }
 
     private fun executeAction() {
@@ -48,9 +55,9 @@ class MainActivity : AppCompatActivity() {
                     R.id.option_update -> tree.update(applicationContext, Record(key, data))
                     R.id.option_delete -> tree.delete(applicationContext, key)
                     R.id.option_search -> tree.search(applicationContext, key)
-                    else -> "Invalid action"
+                    else -> getString(R.string.invalid_action)
                 }
-            } else "Invalid key"
+            } else getString(R.string.invalid_key)
 
         binding.result.text = getString(R.string.result, result)
     }
@@ -82,7 +89,7 @@ class MainActivity : AppCompatActivity() {
         constraintSet.applyTo(binding.parentLayout)
     }
 
-    private fun handleKeyEvent(view: View, keyCode: Int): Boolean {
+    private fun handleKeyEvent(keyCode: Int): Boolean {
         if (keyCode == KeyEvent.KEYCODE_ENTER) {
             binding.button.callOnClick()
             return true

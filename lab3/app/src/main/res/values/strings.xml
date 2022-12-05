@@ -14,4 +14,7 @@
     <string name="unsuccessful_insert">Try another key, this one already exists.</string>
     <string name="successful_insert">Record inserted.</string>
     <string name="successful_delete">Deleted.</string>
+    <string name="invalid_action">Invalid action.</string>
+    <string name="invalid_key">Invalid key.</string>
+    <string name="delete_tree">All records deleted.</string>
 </resources>
