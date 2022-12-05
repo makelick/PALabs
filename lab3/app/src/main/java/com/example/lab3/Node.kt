@@ -1,5 +1,6 @@
 package com.example.lab3
 
+import android.util.Log
 import java.io.Serializable
 
 class Node(
@@ -12,29 +13,42 @@ class Node(
     fun isLeaf() = children.isEmpty()
 
     fun search(key: Int): Record? {
+        val result = searchRecursive(key)
+        val comparisons = result.second
+        Log.d("SearchTest", "Comparisons : $comparisons.")
+        return result.first
+    }
+
+    private fun searchRecursive(key: Int): Pair<Record?, Int> {
+        var comparisons = 0
         val result = binarySearch(key)
-        if (result != null) return result
-        if (this.isLeaf()) return null
-        return childByKey(key).search(key)
+        comparisons += result.second
+        if (result.first != null) return Pair(result.first, comparisons)
+        if (this.isLeaf()) return Pair(null, comparisons)
+        val recursiveResult = childByKey(key).searchRecursive(key)
+        comparisons += recursiveResult.second
+        return Pair(recursiveResult.first, comparisons)
     }
 
     fun searchAndUpdate(record: Record): Boolean {
-        val result = binarySearch(record.key)?.let { it.data = record.data }
+        val result = binarySearch(record.key).first?.let { it.data = record.data }
         if (result != null) return true
         if (this.isLeaf()) return false
         return childByKey(record.key).searchAndUpdate(record)
     }
 
-    private fun binarySearch(key: Int): Record? {
+    private fun binarySearch(key: Int): Pair<Record?, Int> {
+        var comparisons = 0
         var len = records.size
         var mid = len / 2
         while (len != 0) {
+            comparisons++
             len /= 2
             if (mid >= 0 && (mid >= records.size || records[mid].key > key)) mid -= len / 2 + 1
             else if (mid < 0 || records[mid].key < key) mid += len / 2 + 1
-            else if (records[mid].key == key) return records[mid]
+            else if (records[mid].key == key) return Pair(records[mid], comparisons)
         }
-        return null
+        return Pair(null, comparisons)
     }
 
     fun childByKey(key: Int): Node {
@@ -57,7 +71,7 @@ class Node(
     }
 
     fun delete(record: Record) {
-        if (binarySearch(record.key) != null) {
+        if (binarySearch(record.key).first != null) {
             if (isLeaf()) {
                 records.remove(record)
             } else {
