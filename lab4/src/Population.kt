@@ -1,9 +1,9 @@
-class Population {
+class Population(val items : MutableList<Item>, val populationSize : Int) {
     val individuals: MutableList<Individual> = mutableListOf()
 
     fun createPopulation() {
-        for (i in 0..100) {
-            individuals.add(Individual(MutableList(100) {false}).also { it.chromosome[i] = true })
+        for (i in 0..populationSize) {
+            individuals.add(Individual(items).also { it.chromosome[i] = true })
         }
     }
 
@@ -13,6 +13,11 @@ class Population {
 
     fun getBest(): Individual {
         individuals.sortBy { it.weight }
-        return individuals[0]
+        return individuals.first()
+    }
+
+    fun getWorst(): Individual {
+        individuals.sortBy { it.weight }
+        return individuals.last()
     }
 }
