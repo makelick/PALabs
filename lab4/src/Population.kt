@@ -12,12 +12,12 @@ class Population(val items : MutableList<Item>, val populationSize : Int) {
     }
 
     fun getBest(): Individual {
-        individuals.sortBy { it.weight }
-        return individuals.first()
+        individuals.sortBy { it.value }
+        return individuals.last()
     }
 
     fun getWorst(): Individual {
-        individuals.sortBy { it.weight }
-        return individuals.last()
+        individuals.sortBy { it.value }
+        return individuals.first()
     }
 }
