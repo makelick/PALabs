@@ -13,6 +13,9 @@ class GeneticAlgorithm(private val population: Population, private val backpackC
                 population.add(child)
                 population.individuals.remove(population.getWorst())
             }
+            if (i % 20 == 0) {
+                println("$i : ${population.getBest().value}")
+            }
         }
         println(population.getBest())
     }
