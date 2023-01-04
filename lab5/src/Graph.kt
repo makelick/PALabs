@@ -1,4 +1,4 @@
-class Graph(nodesNum : Int, maxDegree : Int) {
+class Graph(nodesNum : Int, val maxDegree : Int) {
     val nodes : Set<Node> =
         (0 until nodesNum).map { Node(it) }.toSet()
 

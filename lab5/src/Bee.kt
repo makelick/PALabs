@@ -5,19 +5,23 @@ class Bee(private val graph : Graph) {
 
     fun generateRandomSolution() {
         nodes = graph.nodes.shuffled()
-            .take((2..graph.nodes.size).random())
+            .take((2..graph.maxDegree).random())
             .toMutableSet()
     }
 
-    fun modifySolution(nodes : MutableSet<Node>) {
+    fun modifySolution(newNodes : MutableSet<Node>) {
+        nodes = mutableSetOf()
+        nodes.addAll(newNodes)
+        var counter = 0
         do {
-            var isAdded = false
+            var isModified = false
             val newNode = graph.nodes.shuffled().first()
             if (!nodes.contains(newNode)) {
                 nodes.add(newNode)
-                isAdded = true
+                isModified = true
             }
-        } while (!isAdded)
+            counter++
+        } while (counter < nodes.size && !isModified)
     }
 
     private fun isClique(nodes : MutableSet<Node>) : Boolean {
