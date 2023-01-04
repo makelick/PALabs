@@ -1,8 +1,8 @@
 class BeeAlgorithm(graph: Graph) {
-    val foragerBeesNumber = 100
-    val scoutBeesNumber = 100
+    val foragerBeesNumber = 55
+    val scoutBeesNumber = 45
     val maxIterations = 1000
-    val eliteBeesNumber = 5
+    val eliteBeesNumber = 10
 
     val scoutBees = (0 until scoutBeesNumber).map { Bee(graph) }.toMutableList()
     val foragerBees = (0 until foragerBeesNumber).map { Bee(graph) }.toMutableList()
@@ -16,7 +16,6 @@ class BeeAlgorithm(graph: Graph) {
             for (i in foragerBees.indices) {
                 foragerBees[i].modifySolution(eliteBees[i % eliteBeesNumber].nodes)
             }
-
             replaceWorstSolutions(eliteBees)
             bestSolution = (foragerBees + scoutBees).maxBy { it.fitness }
             println("Iteration: $iteration, Solution: ${bestSolution.fitness}")

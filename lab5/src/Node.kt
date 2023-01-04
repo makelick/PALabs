@@ -6,4 +6,8 @@ class Node(val id : Int, private val adjacentNodes : MutableSet<Node> = mutableS
     fun areNeighbors(node : Node) : Boolean {
         return adjacentNodes.contains(node)
     }
+
+    override fun toString() : String{
+        return "Node $id"
+    }
 }
