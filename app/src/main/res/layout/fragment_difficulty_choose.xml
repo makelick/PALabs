@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DifficultyChooseFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:id="@+id/choose_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/title_margin"
+        android:text="@string/choose_title"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textSize="35sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/easy_button"
+        android:layout_width="@dimen/choose_button_width"
+        android:layout_height="@dimen/choose_button_height"
+        android:layout_marginTop="@dimen/title_margin"
+        android:text="@string/easy_difficulty"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/choose_title" />
+
+    <Button
+        android:id="@+id/normal_button"
+        android:layout_width="@dimen/choose_button_width"
+        android:layout_height="@dimen/choose_button_height"
+        android:layout_marginTop="@dimen/choose_button_margin"
+        android:text="@string/normal_difficulty"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/easy_button" />
+
+    <Button
+        android:id="@+id/hard_button"
+        android:layout_width="@dimen/choose_button_width"
+        android:layout_height="@dimen/choose_button_height"
+        android:layout_marginTop="@dimen/choose_button_margin"
+        android:text="@string/hard_difficulty"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/normal_button" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
