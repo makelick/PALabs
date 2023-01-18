@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">lab6</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="choose_title">Choose difficulty</string>
+    <string name="easy_difficulty">Easy</string>
+    <string name="normal_difficulty">Normal</string>
+    <string name="hard_difficulty">Hard</string>
+    <string name="coordinates">(%d, %d)</string>
+</resources>
