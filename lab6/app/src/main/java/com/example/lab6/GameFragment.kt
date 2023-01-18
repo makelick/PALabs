@@ -24,11 +24,11 @@ class GameFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val difficulty = arguments?.getInt("difficulty")
+        val difficulty = arguments?.getInt("difficulty")!!
 
         val recyclerView = binding.boardRecyclerview
         val squares = createSquares()
-        val adapter = ChessBoardAdapter(squares)
+        val adapter = ChessBoardAdapter(squares, difficulty)
         recyclerView.adapter = adapter
 
         val gridLayoutManager = GridLayoutManager(requireContext(), 8)

@@ -23,12 +23,10 @@ class ChessSquare(val x: Int, val y: Int, var piece: PieceType? = null) {
 
         val availableMoves : MutableList<ChessSquare> = mutableListOf()
         for (move in moves) {
-                if (board[move.x * 8 + move.y].piece == null && move.x >= 0 && move.x <= 7 && move.y >= 0 && move.y <= 7) {
+                if (move.x in 0..7 && move.y in 0..7 && board[move.x * 8 + move.y].piece == null) {
                     availableMoves.add(move)
                 }
             }
-
-        availableMoves.map { it.piece = PieceType.AVAILABLE_MOVE }
 
         return availableMoves
     }

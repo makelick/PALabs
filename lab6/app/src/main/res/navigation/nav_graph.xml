@@ -40,5 +40,8 @@
         <argument
             android:name="isWon"
             app:argType="boolean" />
+        <argument
+            android:name="difficulty"
+            app:argType="integer" />
     </fragment>
 </navigation>

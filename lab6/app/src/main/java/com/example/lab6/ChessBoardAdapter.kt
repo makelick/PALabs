@@ -6,16 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 
-class ChessBoardAdapter(private val squares: List<ChessSquare>)
+class ChessBoardAdapter(private val squares: List<ChessSquare>, private val difficulty : Int)
     : RecyclerView.Adapter<ChessBoardAdapter.ViewHolder>() {
 
     private val viewHolders : MutableList<ViewHolder> = mutableListOf()
     private var activePiecePos : Int = 0
     private val activeMovesPos : MutableList<ChessSquare> = mutableListOf()
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ViewHolder(val itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imageView: ImageView = itemView.findViewById(R.id.chess_square_image)
         val pieceButton: ImageButton = itemView.findViewById(R.id.piece_button)
     }
@@ -55,6 +56,9 @@ class ChessBoardAdapter(private val squares: List<ChessSquare>)
                     holder.pieceButton.setImageResource(R.drawable.dog)
                     holder.pieceButton.visibility = View.VISIBLE
                     viewHolders[activePiecePos].pieceButton.visibility = View.GONE
+
+                    if (!isHoundWon()) foxMove(holder)
+                    else navigateToEndgameFragment(holder.imageView, true)
                 }
 
                 PieceType.HOUND -> {
@@ -76,6 +80,51 @@ class ChessBoardAdapter(private val squares: List<ChessSquare>)
                 }
             }
         }
+    }
+
+    private fun foxMove(holder: ViewHolder) {
+        val fox = squares.find { it.piece == PieceType.FOX }!!
+        val moves = fox.getAvailableMoves(squares)
+        var move = moves.random()
+
+        for (i in 0..5) {
+            move = moves.random()
+            if (fox.x < move.x) break
+        }
+
+        squares[fox.x * 8 + fox.y].piece = null
+        squares[move.x * 8 + move.y].piece = PieceType.FOX
+
+        viewHolders[fox.x * 8 + fox.y].pieceButton.visibility = View.GONE
+        viewHolders[move.x * 8 + move.y].pieceButton.setImageResource(R.drawable.fox)
+        viewHolders[move.x * 8 + move.y].pieceButton.visibility = View.VISIBLE
+
+        if (isFoxWon()) {
+            navigateToEndgameFragment(holder.imageView, false)
+        }
+    }
+
+    private fun navigateToEndgameFragment(holder: View, isWon : Boolean, ) {
+        val action = GameFragmentDirections.gameToEndgame(isWon, difficulty)
+        holder.findNavController().navigate(action)
+    }
+
+    private fun isFoxWon() : Boolean {
+        for (square in squares) {
+            if (square.piece == PieceType.FOX) {
+                return square.x == 7
+            }
+        }
+        return false
+    }
+
+    private fun isHoundWon() : Boolean {
+        for (square in squares) {
+            if (square.piece == PieceType.FOX) {
+                return square.getAvailableMoves(squares).isEmpty()
+            }
+        }
+        return true
     }
 
     private fun clearActiveMoves() {
