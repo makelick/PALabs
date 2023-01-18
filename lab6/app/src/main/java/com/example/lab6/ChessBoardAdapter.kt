@@ -12,11 +12,11 @@ import androidx.recyclerview.widget.RecyclerView
 class ChessBoardAdapter(private val squares: List<ChessSquare>, private val difficulty : Int)
     : RecyclerView.Adapter<ChessBoardAdapter.ViewHolder>() {
 
-    private val viewHolders : MutableList<ViewHolder> = mutableListOf()
+    val viewHolders : MutableList<ViewHolder> = mutableListOf()
     private var activePiecePos : Int = 0
     private val activeMovesPos : MutableList<ChessSquare> = mutableListOf()
 
-    class ViewHolder(val itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imageView: ImageView = itemView.findViewById(R.id.chess_square_image)
         val pieceButton: ImageButton = itemView.findViewById(R.id.piece_button)
     }
@@ -33,6 +33,10 @@ class ChessBoardAdapter(private val squares: List<ChessSquare>, private val diff
     }
 
     override fun onBindViewHolder(holder: ViewHolder, @SuppressLint("RecyclerView") position: Int) {
+
+        if (position == 63) {
+            foxMove(holder)
+        }
         val square = squares[position]
         holder.imageView.setImageResource(getImageResource(square.x, square.y))
 
@@ -82,7 +86,7 @@ class ChessBoardAdapter(private val squares: List<ChessSquare>, private val diff
         }
     }
 
-    private fun foxMove(holder: ViewHolder) {
+    fun foxMove(holder: ViewHolder) {
         val fox = squares.find { it.piece == PieceType.FOX }!!
         val moves = fox.getAvailableMoves(squares)
         var move = moves.random()

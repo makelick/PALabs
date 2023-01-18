@@ -35,7 +35,6 @@ class GameFragment : Fragment() {
         gridLayoutManager.orientation = GridLayoutManager.VERTICAL
 
         recyclerView.layoutManager = gridLayoutManager
-
     }
 
     private fun createSquares(): List<ChessSquare> {

@@ -8,8 +8,8 @@
     <fragment
         android:id="@+id/difficultyChooseFragment"
         android:name="com.example.lab6.DifficultyChooseFragment"
-        android:label="fragment_difficulty_choose"
-        tools:layout="@layout/fragment_difficulty_choose" >
+        android:label="Fox and Hounds"
+        tools:layout="@layout/fragment_difficulty_choose">
         <action
             android:id="@+id/difficulty_to_game"
             app:destination="@id/gameFragment" />
@@ -17,8 +17,8 @@
     <fragment
         android:id="@+id/gameFragment"
         android:name="com.example.lab6.GameFragment"
-        android:label="fragment_game"
-        tools:layout="@layout/fragment_game" >
+        android:label="Fox and Hounds"
+        tools:layout="@layout/fragment_game">
         <action
             android:id="@+id/game_to_endgame"
             app:destination="@id/endgameFragment" />
@@ -29,8 +29,8 @@
     <fragment
         android:id="@+id/endgameFragment"
         android:name="com.example.lab6.EndgameFragment"
-        android:label="fragment_endgame"
-        tools:layout="@layout/fragment_endgame" >
+        android:label="Fox and Hounds"
+        tools:layout="@layout/fragment_endgame">
         <action
             android:id="@+id/endgame_to_game"
             app:destination="@id/gameFragment" />
