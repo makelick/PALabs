@@ -28,7 +28,7 @@ class GameFragment : Fragment() {
 
         val recyclerView = binding.boardRecyclerview
         val squares = createSquares()
-        val adapter = ChessBoardAdapter(squares, requireContext())
+        val adapter = ChessBoardAdapter(squares)
         recyclerView.adapter = adapter
 
         val gridLayoutManager = GridLayoutManager(requireContext(), 8)
@@ -45,6 +45,12 @@ class GameFragment : Fragment() {
                 squares.add(ChessSquare(x, y))
             }
         }
+
+        for (x in 56 until 64 step 2) {
+            squares[x].piece = PieceType.HOUND
+        }
+        squares[3].piece = PieceType.FOX
+
         return squares
     }
 
